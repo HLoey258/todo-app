@@ -1,6 +1,14 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
-import { Alert, Button, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Button,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import Header from "./.expo/components/Header";
 import { FlatList } from "react-native";
 import Item from "./.expo/components/Item";
@@ -49,22 +57,29 @@ export default function App() {
     }
   };
   return (
-    <View style={styles.container}>
-      <Header></Header>
-      <AddTodo submitHandler={submitHandler}></AddTodo>
-      <View style={styles.body}>
-        <FlatList
-          data={todos}
-          renderItem={({ item }) => (
-            <Item item={item} pressHandle={pressHandle} />
-          )}
-        />
-      </View>
-      {/* <View style={styles.bottom}>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+        console.log("keyboard dimiss");
+      }}
+    >
+      <View style={styles.container}>
+        <Header></Header>
+        <AddTodo submitHandler={submitHandler}></AddTodo>
+        <View style={styles.body}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => (
+              <Item item={item} pressHandle={pressHandle} />
+            )}
+          />
+        </View>
+        {/* <View style={styles.bottom}>
         <Text>Just a botjjtom</Text>
       </View>
       <StatusBar style="auto" /> */}
-    </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
